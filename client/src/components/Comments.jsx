@@ -9,8 +9,21 @@ import {
   AiOutlineDislike,
   AiFillDislike,
 } from "react-icons/ai";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { getFromSession, storeInSession } from "../common/sessions";
 import { UserContext } from "../App";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Comments = ({ blogId }) => {
   const { userAuth } = useContext(UserContext);
@@ -134,7 +147,23 @@ const Comments = ({ blogId }) => {
     );
     setComments(updatedComments);
   };
-  console.log(likedComments);
+
+  const handleCommentDelete = async (commentId) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/blogs/delete-comment`,
+        { commentId },
+        { headers: { Authorization: `Bearer ${userAuth.access_token}` } }
+      );
+
+      const updatedComments = comments.filter(
+        (comment) => comment._id !== commentId
+      );
+      setComments(updatedComments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="text-white text-xl my-8">
@@ -143,7 +172,7 @@ const Comments = ({ blogId }) => {
         <img
           src={userAuth ? userAuth.profileImg : "../../public/pp.png"}
           alt="pp"
-          className="w-12 h-12 rounded-full"
+          className="w-12 h-12 rounded-full object-cover"
         />
         <form
           className="w-full flex flex-col gap-4 items-end"
@@ -162,10 +191,10 @@ const Comments = ({ blogId }) => {
       </div>
       <div>
         {comments && (
-          <div className="flex flex-col gap-6 mt-8">
+          <div className="flex flex-col gap-8 mt-8">
             {comments.map((comment) => {
               return (
-                <div key={comment._id} className="flex gap-2">
+                <div key={comment._id} className="flex gap-4">
                   <img
                     src={comment.commentedBy.profile_info.profile_img}
                     alt="pp"
@@ -176,10 +205,40 @@ const Comments = ({ blogId }) => {
                       <span className="text-white font-bold">
                         {`@${comment.commentedBy.profile_info.username}`}
                       </span>
-                      <span>{`Posted at ${format(
-                        new Date(comment.createdAt),
-                        "dd-MM-yy"
-                      )}`}</span>
+                      <div className="flex gap-4 items-center cursor-pointer">
+                        <span>{`Posted at ${format(
+                          new Date(comment.createdAt),
+                          "dd-MM-yy"
+                        )}`}</span>
+                        {userAuth?.username ===
+                          comment.commentedBy.profile_info.username && (
+                          <AlertDialog>
+                            <AlertDialogTrigger>
+                              <FaRegTrashAlt className="text-red-500" />
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Once you delete the comment it cant be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() =>
+                                    handleCommentDelete(comment._id)
+                                  }
+                                >
+                                  Continue
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        )}
+                      </div>
                     </div>
                     <p className="text-base">{comment.content}</p>
                     <div className="flex items-center gap-6 mt-2">

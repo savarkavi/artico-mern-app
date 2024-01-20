@@ -172,6 +172,8 @@ export const likeBlog = async (req, res) => {
   }
 };
 
+export const deleteBlog = async (req, res) => {};
+
 export const postComment = async (req, res) => {
   const { content, blogId } = req.body;
   const { id } = req.User;
@@ -248,6 +250,18 @@ export const dislikeComment = async (req, res) => {
       });
       res.status(200).send("Disliked comment");
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteComment = async (req, res) => {
+  const { commentId } = req.body;
+  console.log(commentId);
+
+  try {
+    const comments = await Comment.findByIdAndDelete(commentId);
+    res.status(202).json(comments);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

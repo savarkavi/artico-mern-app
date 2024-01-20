@@ -5,6 +5,19 @@ import Pagination from "./Pagination";
 import BlogCard from "./BlogCard";
 import NoBlogsMessage from "./NoBlogsMessage";
 import Spinner from "../common/Spinner";
+import { FaRegTrashAlt } from "react-icons/fa";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const ProfileBlogsPublished = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +51,32 @@ const ProfileBlogsPublished = ({ user }) => {
     <div>
       <div className="flex flex-col gap-16 mt-16">
         {userBlogs.map((blog, i) => {
-          return <BlogCard key={i} blog={blog} />;
+          return (
+            <div key={i} className="flex gap-6 justify-between items-start">
+              <BlogCard blog={blog} />
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <div className="bg-white w-12 h-12 flex justify-center items-center p-4 rounded-full cursor-pointer">
+                    <FaRegTrashAlt className="text-red-500 text-xl" />
+                  </div>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you sure you want to delete the blog?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Once you delete the blog it cant be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          );
         })}
       </div>
       <Pagination

@@ -43,9 +43,7 @@ const EditorNavbar = ({ title, handleMetadataVisible }) => {
           >
             Publish
           </button>
-          <button className="bg-white text-sm sm:text-base text-black p-2 w-24 sm:w-28 rounded-full font-semibold">
-            Save Draft
-          </button>
+
           <div className="text-white flex justify-end xl:hidden">
             <UilBars
               className="cursor-pointer"

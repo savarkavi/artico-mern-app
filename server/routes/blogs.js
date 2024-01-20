@@ -11,6 +11,8 @@ import {
   likeComment,
   dislikeComment,
   getBlogsTracker,
+  deleteComment,
+  deleteBlog,
 } from "../controllers/blogs.js";
 import { verifyJWT } from "../middleware/verifyJwt.js";
 const router = express.Router();
@@ -21,10 +23,12 @@ router.post("/filtered-blogs", getFilteredBlogs);
 router.post("/user-blogs", getUserBlogs);
 router.post("/get-blog", getBlog);
 router.post("/like-blog", verifyJWT, likeBlog);
+router.post("/delete-blog", verifyJWT, deleteBlog);
 router.post("/post-comment", verifyJWT, postComment);
 router.post("/like-comment", verifyJWT, likeComment);
 router.post("/dislike-comment", verifyJWT, dislikeComment);
 router.post("/get-comments", getComments);
+router.post("/delete-comment", verifyJWT, deleteComment);
 router.post("/get-blogs-tracker", getBlogsTracker);
 
 export default router;
