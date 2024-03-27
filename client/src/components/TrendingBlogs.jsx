@@ -20,7 +20,7 @@ const TrendingBlogs = ({ sidebar = false }) => {
 
   if (!trendingBlogs) {
     return (
-      <div className="flex justify-center items-center w-full h-screen">
+      <div className="flex justify-center mt-8 w-full h-screen">
         <Spinner />
       </div>
     );
