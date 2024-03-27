@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
 import authRoute from "./routes/auth.js";
-import googleAuthRoute from "./routes/google-auth.js";
+// import googleAuthRoute from "./routes/google-auth.js";
 import writeRoute from "./routes/write.js";
 import blogsRoute from "./routes/blogs.js";
 import usersRoute from "./routes/users.js";
@@ -28,7 +28,7 @@ app.use(cors());
 
 app.use("/api/blogs", blogsRoute);
 app.use("/api/auth", authRoute);
-app.use("/api/google-auth", googleAuthRoute);
+// app.use("/api/google-auth", googleAuthRoute);
 app.use("/api/write", writeRoute);
 app.use("/api/users", usersRoute);
 
