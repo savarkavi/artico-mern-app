@@ -36,7 +36,7 @@ export const googleAuth = async (req, res) => {
     stsTokenManager: { accessToken },
   } = req.body;
 
-  getAuth()
+  await getAuth()
     .verifyIdToken(accessToken)
     .then(async (user) => {
       const { email, name, picture } = user;
