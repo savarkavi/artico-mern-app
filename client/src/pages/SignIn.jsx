@@ -24,9 +24,10 @@ const SignIn = () => {
   const loginWithGoogle = async () => {
     authWithGoogle()
       .then(async (user) => {
+        const { stsTokenManager } = user;
         const { data } = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/google-auth`,
-          user
+          stsTokenManager
         );
         toast.success(`Welcome ${data.fullname}`);
         storeInSession("user", JSON.stringify(data));

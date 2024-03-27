@@ -17,15 +17,15 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 export const authWithGoogle = async () => {
-  let user = null;
+  let accessToken = null;
 
-  await signInWithPopup(auth, provider)
-    .then((result) => {
-      user = result.user;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    accessToken = credential.accessToken;
+  } catch (error) {
+    console.log(error);
+  }
 
-  return user;
+  return { stsTokenManager: { accessToken } };
 };
