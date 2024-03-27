@@ -21,7 +21,7 @@ const SignIn = () => {
     setPasswordVisible((prev) => !prev);
   };
 
-  const loginWithGoogle = () => {
+  const loginWithGoogle = async () => {
     authWithGoogle()
       .then(async (user) => {
         const { data } = await axios.post(
