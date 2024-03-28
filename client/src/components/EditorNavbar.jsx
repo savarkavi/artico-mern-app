@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { UilBars } from "@iconscout/react-unicons";
 import { useContext } from "react";
@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 const EditorNavbar = ({ title, handleMetadataVisible }) => {
   const { blog } = useContext(EditorContext);
   const { userAuth } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handlePublish = async () => {
     await axios
@@ -19,6 +20,8 @@ const EditorNavbar = ({ title, handleMetadataVisible }) => {
       })
       .then((response) => {
         toast.success(response.data);
+        sessionStorage.removeItem("blogData");
+        navigate("/");
       })
       .catch(({ response }) =>
         toast.error(JSON.stringify(response.data.error))
@@ -26,7 +29,7 @@ const EditorNavbar = ({ title, handleMetadataVisible }) => {
   };
 
   return (
-    <div className="sticky top-0 p-6 z-[99] bg-zinc-950">
+    <div className="sticky top-0 p-6 z-[999] bg-zinc-950">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/">

@@ -24,6 +24,7 @@ const HomeTagsSection = ({
     }
 
     const category = e.target.innerText;
+    console.log(category);
     setActiveCategory(category);
     setActiveNavigation("filtered");
   };

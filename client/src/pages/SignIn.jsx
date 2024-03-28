@@ -1,12 +1,10 @@
 import { UilEnvelope, UilKeySkeleton, UilEye } from "@iconscout/react-unicons";
 import { useContext, useState } from "react";
-// import google from "../assets/google.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { storeInSession } from "../common/sessions";
 import { UserContext } from "../App";
-// import { authWithGoogle } from "../common/firebase";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -20,24 +18,6 @@ const SignIn = () => {
   const handlePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
-
-  // const loginWithGoogle = async () => {
-  //   authWithGoogle()
-  //     .then(async (user) => {
-  //       const { stsTokenManager } = user;
-  //       const { data } = await axios.post(
-  //         `${import.meta.env.VITE_BASE_URL}/google-auth`,
-  //         { stsTokenManager }
-  //       );
-  //       toast.success(`Welcome ${data.fullname}`);
-  //       storeInSession("user", JSON.stringify(data));
-  //       setUserAuth(data);
-  //       navigate("/");
-  //     })
-  //     .catch(() => {
-  //       toast.error("Something went wrong");
-  //     });
-  // };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -97,13 +77,6 @@ const SignIn = () => {
         </form>
         <div className="text-white md:px-10 flex flex-col items-center gap-4 w-[90%] max-w-[500px]">
           <span>OR</span>
-          {/* <div
-            className="bg-stone-800 p-4 rounded-xl flex gap-4 items-center justify-center w-full cursor-pointer"
-            onClick={loginWithGoogle}
-          >
-            <img src={google} alt="google logo" className="w-6 h-6" />
-            <span className="text-xl">Continue with google</span>
-          </div> */}
           <div>
             <span>Don&apos;t have an account?</span>
             <Link to="/signup" className="underline ml-2">

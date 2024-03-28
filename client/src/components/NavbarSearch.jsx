@@ -33,8 +33,8 @@ const NavbarSearch = ({ searchVisible, isSmallScreen = false }) => {
     >
       <input
         type="text"
-        placeholder="Search..."
-        className="py-2 px-4 w-full bg-stone-800 rounded-full outline-none text-white"
+        placeholder="Search tags..."
+        className="py-2 px-4 w-full bg-stone-800 rounded-full outline-none text-white text-sm"
         value={searchInput}
         onChange={handleSearchInput}
       />

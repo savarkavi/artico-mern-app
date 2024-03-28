@@ -28,7 +28,6 @@ app.use(cors());
 
 app.use("/api/blogs", blogsRoute);
 app.use("/api/auth", authRoute);
-// app.use("/api/google-auth", googleAuthRoute);
 app.use("/api/write", writeRoute);
 app.use("/api/users", usersRoute);
 

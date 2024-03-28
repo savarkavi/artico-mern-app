@@ -16,29 +16,11 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  // const { setUserAuth } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handlePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
-
-  // const loginWithGoogle = () => {
-  //   authWithGoogle()
-  //     .then(async (user) => {
-  //       const { data } = await axios.post(
-  //         `${import.meta.env.VITE_BASE_URL}/google-auth`,
-  //         user
-  //       );
-  //       toast.success(`Welcome ${data.fullname}`);
-  //       storeInSession("user", JSON.stringify(data));
-  //       setUserAuth(data);
-  //       navigate("/");
-  //     })
-  //     .catch(() => {
-  //       toast.error("Something went wrong");
-  //     });
-  // };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -108,13 +90,6 @@ const SignUp = () => {
         </form>
         <div className="text-white md:px-10 flex flex-col items-center gap-4 w-[90%] max-w-[500px]">
           <span>OR</span>
-          {/* <div
-            className="bg-stone-800 p-4 rounded-xl flex gap-4 items-center justify-center w-full cursor-pointer"
-            onClick={loginWithGoogle}
-          >
-            <img src={google} alt="google logo" className="w-6 h-6" />
-            <span className="text-xl">Continue with google</span>
-          </div> */}
           <div>
             <span>Already have an account?</span>
             <Link to="/signin" className="underline ml-2">
